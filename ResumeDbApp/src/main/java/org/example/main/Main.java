@@ -13,9 +13,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         UserDaoInter userDao = Context.instanceUserDao();
 
-
-        System.out.println("list=" + list);
-        System.out.println("list2" + list2);
+        System.out.println(userDao.getAll());
     }
 
 
