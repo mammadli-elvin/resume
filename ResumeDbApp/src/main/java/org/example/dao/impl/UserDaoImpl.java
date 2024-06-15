@@ -110,8 +110,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
 
     @Override
     public boolean removeUser(int id) {
-        try {
-            Connection c = connect();
+        try (Connection c = connect()){
             Statement stmt = c.createStatement();
             return stmt.execute("delete from user where id = " + id);
         } catch (Exception ex) {
