@@ -1,4 +1,4 @@
-package org.example.bean;
+package org.example.entity;
 
 public class Skill {
     private int id;

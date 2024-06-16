@@ -1,9 +1,9 @@
 package org.example.dao.impl;
 
-import org.example.bean.Country;
-import org.example.bean.User;
 import org.example.dao.inter.AbstractDAO;
 import org.example.dao.inter.UserDaoInter;
+import org.example.entity.Country;
+import org.example.entity.User;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -35,7 +35,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
         try (Connection c = connect()) {
             Statement stmt = c.createStatement();
@@ -110,7 +110,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
 
     @Override
     public boolean removeUser(int id) {
-        try (Connection c = connect()){
+        try (Connection c = connect()) {
             Statement stmt = c.createStatement();
             return stmt.execute("delete from user where id = " + id);
         } catch (Exception ex) {

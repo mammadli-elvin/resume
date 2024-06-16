@@ -1,6 +1,6 @@
 package org.example.dao.inter;
 
-import org.example.bean.Skill;
+import org.example.entity.Skill;
 
 import java.util.List;
 

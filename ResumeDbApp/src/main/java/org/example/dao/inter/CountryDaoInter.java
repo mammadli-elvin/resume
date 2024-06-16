@@ -1,6 +1,6 @@
 package org.example.dao.inter;
 
-import org.example.bean.Country;
+import org.example.entity.Country;
 
 import java.util.List;
 

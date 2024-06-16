@@ -1,11 +1,12 @@
 package org.example.dao.inter;
 
-import org.example.bean.User;
+import org.example.entity.User;
+import org.example.entity.UserSkill;
 
 import java.util.List;
 
 public interface UserDaoInter {
-    public List<User> getAll();
+    public List<User> getAllUsers();
 
     public User getById(int id);
 

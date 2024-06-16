@@ -1,6 +1,6 @@
 package org.example.dao.impl;
 
-import org.example.bean.Skill;
+import org.example.entity.Skill;
 import org.example.dao.inter.AbstractDAO;
 import org.example.dao.inter.SkillDaoInter;
 
@@ -12,22 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
+    public Skill getSkill(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String name = rs.getString("name");
+        return new Skill(id, name);
+    }
+
     @Override
     public List<Skill> getAllSkills() {
-        List<Skill> skills = new ArrayList<>();
-        try(Connection c = connect()) {
+        List<Skill> result = new ArrayList<>();
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("select * from resume.skill;");
             stmt.execute();
             ResultSet rs = stmt.getResultSet();
-            while(rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                Skill skill = new Skill(id, name);
-                skills.add(skill);
+            while (rs.next()) {
+                Skill skill = getSkill(rs);
+                result.add(skill);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return skills;
+        return result;
     }
 }
