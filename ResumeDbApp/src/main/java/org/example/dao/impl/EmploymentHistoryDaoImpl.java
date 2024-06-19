@@ -1,9 +1,7 @@
 package org.example.dao.impl;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import org.example.dao.inter.AbstractDAO;
 import org.example.dao.inter.EmploymentHistoryDaoInter;
-import org.example.entity.Country;
 import org.example.entity.EmploymentHistory;
 import org.example.entity.User;
 
@@ -40,8 +38,8 @@ public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentH
                 EmploymentHistory employmentHistory = getEmploymentHistory(rs);
                 result.add(employmentHistory);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -49,43 +47,61 @@ public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentH
     @Override
     public EmploymentHistory getEmploymentHistoryById(int id) {
         EmploymentHistory result = null;
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("select * from resume.employment_history where id=?;");
             stmt.setInt(1, id);
             stmt.execute();
             ResultSet rs = stmt.getResultSet();
-            while(rs.next()) {
+            while (rs.next()) {
                 result = getEmploymentHistory(rs);
             }
-        } catch(Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
 
     @Override
     public boolean addEmploymentHistory(EmploymentHistory employmentHistory) {
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("insert into resume.employment_history(header, begin_date, end_date, job_description, user_id) values(?, ?, ?, ?, ?);");
             stmt.setString(1, employmentHistory.getHeader());
             stmt.setDate(2, employmentHistory.getBeginDate());
             stmt.setDate(3, employmentHistory.getEndDate());
             stmt.setString(4, employmentHistory.getJobDescription());
             stmt.setInt(5, employmentHistory.getUser().getId());
-            return stmt.execute();
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            return false;
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public boolean updateEmploymentHistory(EmploymentHistory employmentHistory) {
-        return false;
+        try (Connection c = connect()) {
+            PreparedStatement stmt = c.prepareStatement("update resume.employment_history set header=?, begin_date=?, end_date=?, job_description=? where id=?;");
+            stmt.setString(1, employmentHistory.getHeader());
+            stmt.setDate(2, employmentHistory.getBeginDate());
+            stmt.setDate(3, employmentHistory.getEndDate());
+            stmt.setString(4, employmentHistory.getJobDescription());
+            stmt.setInt(5, employmentHistory.getUser().getId());
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public boolean removeEmploymentHistory(int id) {
-        return false;
+        try (Connection c = connect()) {
+            PreparedStatement stmt = c.prepareStatement("delete from resume.employment_history where id=?;");
+            stmt.setInt(1, id);
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

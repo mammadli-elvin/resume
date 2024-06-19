@@ -30,8 +30,8 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
                 Country country = getCountry(rs);
                 result.add(country);
             }
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -47,8 +47,8 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
             while(rs.next()) {
                 result = getCountry(rs);
             }
-        } catch(Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -56,13 +56,14 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
     @Override
     public boolean addCountry(Country country) {
         try(Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("insert into resume.country(name, nationality) values(?, ?)");
-            stmt.setString(1, country.getName());
-            stmt.setString(2, country.getNationality());
-            return stmt.execute();
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            return false;
+            PreparedStatement stmt = c.prepareStatement("insert into resume.country(id, name, nationality) values(?, ?, ?)");
+            stmt.setInt(1, country.getId());
+            stmt.setString(2, country.getName());
+            stmt.setString(3, country.getNationality());
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -73,10 +74,10 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
             stmt.setString(1, country.getName());
             stmt.setString(2, country.getNationality());
             stmt.setInt(3, country.getId());
-            return stmt.execute();
-        } catch(Exception ex) {
-            ex.printStackTrace();
-            return false;
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -85,10 +86,10 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
         try(Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("delete from resume.country where id=?;");
             stmt.setInt(1, id);
-            return stmt.execute();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

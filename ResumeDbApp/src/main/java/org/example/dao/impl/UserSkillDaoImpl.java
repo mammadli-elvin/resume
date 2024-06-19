@@ -31,10 +31,10 @@ public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
         try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("""
                     select u.id, s.id as skill_id, s.name as skill_name, us.id as user_skill_id, us.power
-                    from user_skill us
-                             left join user u
+                    from resume.user_skill us
+                             left join resume.user u
                                        on us.user_id = u.id
-                             left join skill s
+                             left join resume.skill s
                                        on us.skill_id = s.id
                     where u.id = ?;""");
             stmt.setInt(1, id);
@@ -44,10 +44,52 @@ public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
                 UserSkill userskill = getUserSkill(rs);
                 result.add(userskill);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
+    }
+
+    @Override
+    public boolean addUserSkill(UserSkill userSkill) {
+        try (Connection c = connect()) {
+            PreparedStatement stmt = c.prepareStatement("insert into resume.user_skill(id, user_id, skill_id, power) values(?, ?, ?, ?)");
+            stmt.setInt(1, userSkill.getId());
+            stmt.setInt(2, userSkill.getUser().getId());
+            stmt.setInt(3, userSkill.getSkill().getId());
+            stmt.setInt(4, userSkill.getPower());
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean updateUserSkill(UserSkill userSkill) {
+        try (Connection c = connect()) {
+            PreparedStatement stmt = c.prepareStatement("update resume.user_skill set user_id=?, skill_id=?, power=? where id=?");
+            stmt.setInt(1, userSkill.getUser().getId());
+            stmt.setInt(2, userSkill.getSkill().getId());
+            stmt.setInt(3, userSkill.getPower());
+            stmt.setInt(4, userSkill.getId());
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean removeUserSkill(int id) {
+        try(Connection c = connect()) {
+            PreparedStatement stmt = c.prepareStatement("delete from resume.user_skill where id=?");
+            stmt.setInt(1, id);
+            stmt.execute();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

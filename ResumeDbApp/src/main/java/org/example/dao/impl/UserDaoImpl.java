@@ -50,8 +50,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
                 User u = getUser(rs);
                 result.add(u);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -71,8 +71,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             while (rs.next()) {
                 result = getUser(rs);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
@@ -88,9 +88,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setString(5, u.getEmail());
             stmt.execute();
             return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,9 +104,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setInt(5, u.getId());
             stmt.execute();
             return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -117,9 +115,8 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             Statement stmt = c.createStatement();
             stmt.execute("delete from user where id = " + id);
             return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }
