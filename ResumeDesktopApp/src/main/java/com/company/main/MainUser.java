@@ -31,6 +31,7 @@ public class MainUser extends javax.swing.JFrame {
     public MainUser() {
         initComponents();
         loggedInUser = userDao.getUserById(6);
+        fillWindow();
         fillUserComponents();
     }
     
