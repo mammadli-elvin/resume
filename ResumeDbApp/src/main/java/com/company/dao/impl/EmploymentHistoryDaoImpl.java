@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,13 +72,19 @@ public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentH
     @Override
     public boolean addEmploymentHistory(EmploymentHistory employmentHistory) {
         try (Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("insert into resume.employment_history(header, begin_date, end_date, job_description, user_id) values(?, ?, ?, ?, ?);");
+            PreparedStatement stmt = c.prepareStatement("insert into resume.employment_history(header, begin_date, end_date, job_description, user_id) values(?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, employmentHistory.getHeader());
             stmt.setDate(2, employmentHistory.getBeginDate());
             stmt.setDate(3, employmentHistory.getEndDate());
             stmt.setString(4, employmentHistory.getJobDescription());
             stmt.setInt(5, employmentHistory.getUser().getId());
             stmt.execute();
+            
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                employmentHistory.setId(generatedKeys.getInt(1));
+            }
+            
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

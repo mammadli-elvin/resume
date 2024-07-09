@@ -12,7 +12,7 @@ import java.util.List;
  * @author elvin
  */
 public class User {
-    private int id;
+    private Integer id;
     private String name;
     private String surname;
     private String phone;
@@ -27,11 +27,11 @@ public class User {
     public User() {
     }
 
-    public User(int id) {
+    public User(Integer id) {
         this.id = id;
     }
 
-    public User(int id, String name, String surname, String phone, String email, String profileDesc, String address, Date birthDate, Country nationality, Country birthPlace) {
+    public User(Integer id, String name, String surname, String phone, String email, String profileDesc, String address, Date birthDate, Country nationality, Country birthPlace) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -44,11 +44,11 @@ public class User {
         this.birthPlace = birthPlace;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

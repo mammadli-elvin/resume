@@ -9,7 +9,7 @@ package com.company.entity;
  * @author elvin
  */
 public class UserSkill {
-    private int id;
+    private Integer id;
     private User user;
     private Skill skill;
     private Integer power;

@@ -89,18 +89,23 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
     @Override
     public boolean addUser(User u) {
         try (Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("insert into resume.user(id, name, surname, phone, email, profile_description, address, birthdate, birthplace_id, nationality_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setInt(1, u.getId());
-            stmt.setString(2, u.getName());
-            stmt.setString(3, u.getSurname());
-            stmt.setString(4, u.getPhone());
-            stmt.setString(5, u.getEmail());
-            stmt.setString(6, u.getProfileDesc());
+            PreparedStatement stmt = c.prepareStatement("insert into resume.user(name, surname, phone, email, profile_description, address, birthdate, birthplace_id, nationality_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, u.getName());
+            stmt.setString(2, u.getSurname());
+            stmt.setString(3, u.getPhone());
+            stmt.setString(4, u.getEmail());
+            stmt.setString(5, u.getProfileDesc());
             stmt.setString(6, u.getAddress());
             stmt.setDate(7, u.getBirthDate());
             stmt.setInt(8, u.getBirthPlace().getId());
             stmt.setInt(9, u.getNationality().getId());
             stmt.execute();
+            
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                u.setId(generatedKeys.getInt(1));
+            }
+            
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -121,7 +126,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setInt(8, u.getBirthPlace().getId());
             stmt.setInt(9, u.getNationality().getId());
             stmt.setInt(10, u.getId());
-            stmt.execute();
+            stmt.execute();        
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

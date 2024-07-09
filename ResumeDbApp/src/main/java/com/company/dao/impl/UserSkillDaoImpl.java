@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +61,17 @@ public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
     @Override
     public boolean addUserSkill(UserSkill userSkill) {
         try (Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("insert into resume.user_skill(id, user_id, skill_id, power) values(?, ?, ?, ?)");
-            stmt.setInt(1, userSkill.getId());
-            stmt.setInt(2, userSkill.getUser().getId());
-            stmt.setInt(3, userSkill.getSkill().getId());
-            stmt.setInt(4, userSkill.getPower());
+            PreparedStatement stmt = c.prepareStatement("insert into resume.user_skill(user_id, skill_id, power) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, userSkill.getUser().getId());
+            stmt.setInt(2, userSkill.getSkill().getId());
+            stmt.setInt(3, userSkill.getPower());
             stmt.execute();
+            
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                userSkill.setId(generatedKeys.getInt(1));
+            }
+            
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +64,16 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
     @Override
     public boolean addCountry(Country country) {
         try(Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("insert into resume.country(id, name, nationality) values(?, ?, ?)");
-            stmt.setInt(1, country.getId());
-            stmt.setString(2, country.getName());
-            stmt.setString(3, country.getNationality());
+            PreparedStatement stmt = c.prepareStatement("insert into resume.country(name, nationality) values(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, country.getName());
+            stmt.setString(2, country.getNationality());
             stmt.execute();
+            
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                country.setId(generatedKeys.getInt(1));
+            }
+            
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
