@@ -29,9 +29,8 @@ public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentH
         Date endDate = rs.getDate("end_date");
         String jobDescription = rs.getString("job_description");
         int userId = rs.getInt("user_id");
-        User user = new User(userId);
 
-        return new EmploymentHistory(id, header, beginDate, endDate, jobDescription, user);
+        return new EmploymentHistory(id, header, beginDate, endDate, jobDescription, new User(userId));
     }
 
     @Override
@@ -94,12 +93,13 @@ public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentH
     @Override
     public boolean updateEmploymentHistory(EmploymentHistory employmentHistory) {
         try (Connection c = connect()) {
-            PreparedStatement stmt = c.prepareStatement("update resume.employment_history set header=?, begin_date=?, end_date=?, job_description=? where id=?;");
+            PreparedStatement stmt = c.prepareStatement("update resume.employment_history set header=?, begin_date=?, end_date=?, job_description=?, user_id=? where id=?;");
             stmt.setString(1, employmentHistory.getHeader());
             stmt.setDate(2, employmentHistory.getBeginDate());
             stmt.setDate(3, employmentHistory.getEndDate());
             stmt.setString(4, employmentHistory.getJobDescription());
             stmt.setInt(5, employmentHistory.getUser().getId());
+            stmt.setInt(6, employmentHistory.getId());
             stmt.execute();
             return true;
         } catch (SQLException | ClassNotFoundException e) {

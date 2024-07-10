@@ -11,7 +11,6 @@ import com.company.entity.User;
 import com.company.entity.UserSkill;
 import com.company.main.Context;
 import com.company.resume.config.Config;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -63,10 +62,6 @@ public class SkillsPanel extends javax.swing.JPanel {
     
     public void fillUserComponents() {
         fillWindow();
-    }
-    
-    public void fillUser(User user) {
-        
     }
 
     /**
@@ -177,7 +172,7 @@ public class SkillsPanel extends javax.swing.JPanel {
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnSave)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

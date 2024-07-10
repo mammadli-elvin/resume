@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         UserDaoInter userDao = Context.instanceUserDao();
-        System.out.println(userDao.getAllUsers());;
+        System.out.println(userDao.getAllUsers());
 
     }
 }

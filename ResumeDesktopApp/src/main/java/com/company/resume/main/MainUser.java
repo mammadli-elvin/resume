@@ -183,8 +183,6 @@ public class MainUser extends javax.swing.JFrame {
         user.setSurname(surname);
         panelProfile.fillUser(user);
         panelDetails.fillUser(user);
-        panelSkills.fillUser(user);
-        panelHistory.fillUser(user);
         
         userDao.updateUser(loggedInUser);
     }//GEN-LAST:event_btnSaveActionPerformed
