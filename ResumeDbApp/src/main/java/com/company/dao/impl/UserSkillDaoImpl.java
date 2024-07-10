@@ -66,12 +66,12 @@ public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
             stmt.setInt(2, userSkill.getSkill().getId());
             stmt.setInt(3, userSkill.getPower());
             stmt.execute();
-            
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 userSkill.setId(generatedKeys.getInt(1));
             }
-            
+
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -95,7 +95,7 @@ public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
 
     @Override
     public boolean removeUserSkill(int id) {
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("delete from resume.user_skill where id=?");
             stmt.setInt(1, id);
             stmt.execute();

@@ -20,6 +20,7 @@ import com.company.dao.inter.UserSkillDaoInter;
  * @author elvin
  */
 public class Context {
+
     //loosely coupling
     //tightly coupling
     public static UserDaoInter instanceUserDao() {

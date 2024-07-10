@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author elvin
  */
 public class EmploymentHistory {
+
     private Integer id;
     private String header;
     private Date beginDate;
@@ -80,13 +81,13 @@ public class EmploymentHistory {
 
     @Override
     public String toString() {
-        return "EmploymentHistory{" +
-                "id=" + id +
-                ", header='" + header + '\'' +
-                ", beginDate=" + beginDate +
-                ", endDate=" + endDate +
-                ", jobDescription='" + jobDescription + '\'' +
-                ", user=" + user +
-                '}';
+        return "EmploymentHistory{"
+                + "id=" + id
+                + ", header='" + header + '\''
+                + ", beginDate=" + beginDate
+                + ", endDate=" + endDate
+                + ", jobDescription='" + jobDescription + '\''
+                + ", user=" + user
+                + '}';
     }
 }

@@ -48,12 +48,12 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
         List<User> result = new ArrayList<>();
         try (Connection c = connect()) {
             Statement stmt = c.createStatement();
-            stmt.execute("select u.*, n.nationality as nationality, c.name as birthplace" +
-                    " from resume.user u" +
-                    "         left join resume.country n" +
-                    "                   on u.nationality_id = n.id" +
-                    "         left join resume.country c" +
-                    "                   on u.birthplace_id = c.id;");
+            stmt.execute("select u.*, n.nationality as nationality, c.name as birthplace"
+                    + " from resume.user u"
+                    + "         left join resume.country n"
+                    + "                   on u.nationality_id = n.id"
+                    + "         left join resume.country c"
+                    + "                   on u.birthplace_id = c.id;");
             ResultSet rs = stmt.getResultSet();
             while (rs.next()) {
                 User u = getUser(rs);
@@ -70,12 +70,12 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
         User result = null;
         try (Connection c = connect()) {
             Statement stmt = c.createStatement();
-            stmt.execute("select u.*, n.nationality as nationality, c.name as birthplace" +
-                    " from resume.user u" +
-                    "         left join resume.country n" +
-                    "                   on u.nationality_id = n.id" +
-                    "         left join resume.country c" +
-                    "                   on u.birthplace_id = c.id where u.id = " + userId);
+            stmt.execute("select u.*, n.nationality as nationality, c.name as birthplace"
+                    + " from resume.user u"
+                    + "         left join resume.country n"
+                    + "                   on u.nationality_id = n.id"
+                    + "         left join resume.country c"
+                    + "                   on u.birthplace_id = c.id where u.id = " + userId);
             ResultSet rs = stmt.getResultSet();
             while (rs.next()) {
                 result = getUser(rs);
@@ -100,12 +100,12 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setInt(8, u.getBirthPlace().getId());
             stmt.setInt(9, u.getNationality().getId());
             stmt.execute();
-            
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 u.setId(generatedKeys.getInt(1));
             }
-            
+
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -126,7 +126,7 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
             stmt.setInt(8, u.getBirthPlace().getId());
             stmt.setInt(9, u.getNationality().getId());
             stmt.setInt(10, u.getId());
-            stmt.execute();        
+            stmt.execute();
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

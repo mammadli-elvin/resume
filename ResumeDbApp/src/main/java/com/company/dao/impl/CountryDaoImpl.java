@@ -20,6 +20,7 @@ import java.util.List;
  * @author elvin
  */
 public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
+
     public Country getCountry(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String name = rs.getString("name");
@@ -30,11 +31,11 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
     @Override
     public List<Country> getAllCountries() {
         List<Country> result = new ArrayList<>();
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("select * from resume.country;");
             stmt.execute();
             ResultSet rs = stmt.getResultSet();
-            while(rs.next()) {
+            while (rs.next()) {
                 Country country = getCountry(rs);
                 result.add(country);
             }
@@ -47,12 +48,12 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
     @Override
     public Country getCountryById(int id) {
         Country result = null;
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("select * from resume.country where id=?;");
             stmt.setInt(1, id);
             stmt.execute();
             ResultSet rs = stmt.getResultSet();
-            while(rs.next()) {
+            while (rs.next()) {
                 result = getCountry(rs);
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -63,17 +64,17 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
 
     @Override
     public boolean addCountry(Country country) {
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("insert into resume.country(name, nationality) values(?, ?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, country.getName());
             stmt.setString(2, country.getNationality());
             stmt.execute();
-            
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 country.setId(generatedKeys.getInt(1));
             }
-            
+
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -82,7 +83,7 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
 
     @Override
     public boolean updateCountry(Country country) {
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("update resume.country set name=?, nationality=? where id=?;");
             stmt.setString(1, country.getName());
             stmt.setString(2, country.getNationality());
@@ -96,7 +97,7 @@ public class CountryDaoImpl extends AbstractDAO implements CountryDaoInter {
 
     @Override
     public boolean removeCountry(int id) {
-        try(Connection c = connect()) {
+        try (Connection c = connect()) {
             PreparedStatement stmt = c.prepareStatement("delete from resume.country where id=?;");
             stmt.setInt(1, id);
             stmt.execute();

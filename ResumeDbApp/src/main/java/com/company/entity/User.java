@@ -12,6 +12,7 @@ import java.util.List;
  * @author elvin
  */
 public class User {
+
     private Integer id;
     private String name;
     private String surname;

@@ -12,6 +12,7 @@ import java.util.List;
  * @author elvin
  */
 public interface EmploymentHistoryDaoInter {
+
     public List<EmploymentHistory> getAllEmploymentHistoryByUserId(int userId);
 
     public EmploymentHistory getEmploymentHistoryById(int id);

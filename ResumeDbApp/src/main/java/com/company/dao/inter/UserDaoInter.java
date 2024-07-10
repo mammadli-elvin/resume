@@ -12,6 +12,7 @@ import java.util.List;
  * @author elvin
  */
 public interface UserDaoInter {
+
     public List<User> getAllUsers();
 
     public User getUserById(int id);

@@ -13,6 +13,7 @@ import java.sql.SQLException;
  * @author elvin
  */
 public abstract class AbstractDAO {
+
     public Connection connect() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
 

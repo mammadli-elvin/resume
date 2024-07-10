@@ -12,6 +12,7 @@ import java.util.List;
  * @author elvin
  */
 public interface CountryDaoInter {
+
     public List<Country> getAllCountries();
 
     public Country getCountryById(int id);

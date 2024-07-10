@@ -9,6 +9,7 @@ package com.company.entity;
  * @author elvin
  */
 public class Country {
+
     private Integer id;
     private String name;
     private String nationality;

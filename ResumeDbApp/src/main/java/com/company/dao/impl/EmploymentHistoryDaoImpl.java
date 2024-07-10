@@ -22,6 +22,7 @@ import java.util.List;
  * @author elvin
  */
 public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentHistoryDaoInter {
+
     public EmploymentHistory getEmploymentHistory(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String header = rs.getString("header");
@@ -78,12 +79,12 @@ public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentH
             stmt.setString(4, employmentHistory.getJobDescription());
             stmt.setInt(5, employmentHistory.getUser().getId());
             stmt.execute();
-            
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 employmentHistory.setId(generatedKeys.getInt(1));
             }
-            
+
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

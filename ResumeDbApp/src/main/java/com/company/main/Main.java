@@ -4,7 +4,10 @@
  */
 package com.company.main;
 
+import com.company.dao.inter.CountryDaoInter;
+import com.company.dao.inter.SkillDaoInter;
 import com.company.dao.inter.UserDaoInter;
+import com.company.dao.inter.UserSkillDaoInter;
 
 /**
  *
@@ -16,6 +19,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         UserDaoInter userDao = Context.instanceUserDao();
+        CountryDaoInter countryDao = Context.instanceCountryDao();
+        SkillDaoInter skillDao = Context.instanceSkillDao();
+        UserSkillDaoInter userSkillDao = Context.instanceUserSkillDao();
+        EmploymentHistoryInter employmentHistoryDao = Context.instanceEmploymentHistoryDao();
         System.out.println(userDao.getAllUsers());
 
     }
@@ -26,4 +33,4 @@ public class Main {
     Statement
     PreparedStatement
     ResultSet
-*/
+ */

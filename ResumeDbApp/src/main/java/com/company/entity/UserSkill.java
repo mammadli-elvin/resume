@@ -9,6 +9,7 @@ package com.company.entity;
  * @author elvin
  */
 public class UserSkill {
+
     private Integer id;
     private User user;
     private Skill skill;
@@ -58,11 +59,11 @@ public class UserSkill {
 
     @Override
     public String toString() {
-        return "UserSkill{" +
-                "id=" + id +
-                ", user=" + user +
-                ", skill=" + skill +
-                ", power=" + power +
-                '}';
+        return "UserSkill{"
+                + "id=" + id
+                + ", user=" + user
+                + ", skill=" + skill
+                + ", power=" + power
+                + '}';
     }
 }
