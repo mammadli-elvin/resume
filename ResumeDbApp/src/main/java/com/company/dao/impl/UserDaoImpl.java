@@ -66,6 +66,45 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
     }
 
     @Override
+    public List<User> getUsersByCategory(String name, String surname, String phone) {
+        List<User> result = new ArrayList<>();
+        try(Connection c = connect()) {
+            String sql = "select u.*, n.nationality as nationality, c.name as birthplace from resume.user u "
+                    + "left join resume.country n on u.nationality_id = n.id "
+                    + "left join resume.country c on u.birthplace_id = c.id where 1=1";
+            if(name!=null && !name.trim().isEmpty())
+                sql += " and u.name=?";
+            if(surname!=null && !surname.trim().isEmpty())
+                sql += " and u.surname=?";
+            if(phone!=null && !phone.trim().isEmpty()) {
+                sql += " and u.phone=?";
+            }
+            PreparedStatement stmt = c.prepareStatement(sql);
+            int i=1;
+            if(name!=null && !name.trim().isEmpty()) {
+                stmt.setString(i, name);
+                i++;
+            }
+            if(surname!=null && !surname.trim().isEmpty()) {
+                stmt.setString(i, surname);
+                i++;
+            }
+            if(phone!=null && !phone.trim().isEmpty()) {
+                stmt.setString(i, phone);
+            }
+            stmt.execute();
+            ResultSet rs = stmt.getResultSet();
+            while(rs.next()) {
+                User u = getUser(rs);
+                result.add(u);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    @Override
     public User getUserById(int userId) {
         User result = null;
         try (Connection c = connect()) {

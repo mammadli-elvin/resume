@@ -5,6 +5,8 @@
 package com.company.dao.inter;
 
 import com.company.entity.User;
+
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -14,6 +16,8 @@ import java.util.List;
 public interface UserDaoInter {
 
     public List<User> getAllUsers();
+
+    public List<User> getUsersByCategory(String name, String surname, String phone);
 
     public User getUserById(int id);
 
