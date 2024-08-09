@@ -2,16 +2,24 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-        <servlet-name>MyFavoritePage</servlet-name>
-        <servlet-class>com.company.firstwebapp.MyFavoritePage</servlet-class>
+        <servlet-name>UserDetailController</servlet-name>
+        <servlet-class>com.company.resume.controller.UserDetailController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MyFavoritePage</servlet-name>
-        <url-pattern>/MyFavoritePage</url-pattern>
+        <servlet-name>UserDetailController</servlet-name>
+        <url-pattern>/userdetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <filter>
+        <filter-name>JspFilter</filter-name>
+        <filter-class>com.company.resume.filter.JspFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>JspFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
 </web-app>
