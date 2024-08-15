@@ -24,6 +24,7 @@ public class User {
     private Country nationality;
     private Country birthPlace;
     private List<UserSkill> skills;
+    private String password;
 
     public User() {
     }
@@ -131,6 +132,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
