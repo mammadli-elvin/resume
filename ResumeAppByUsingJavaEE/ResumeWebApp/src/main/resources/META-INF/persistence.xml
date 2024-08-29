@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="resumeappPU_hibernate" transaction-type="RESOURCE_LOCAL">
+        <!-- Specify the JPA provider (Hibernate in this case) -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+
+        <!-- Your entity classes -->
+        <class>com.company.entity.Country</class>
+        <class>com.company.entity.EmploymentHistory</class>
+        <class>com.company.entity.Skill</class>
+        <class>com.company.entity.User</class>
+        <class>com.company.entity.UserSkill</class>
+
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+
+        <!-- Database connection properties -->
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/resume"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="12345"/>
+
+            <!-- Optional: Enable Hibernate logging -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+        </properties>
+    </persistence-unit>
+
+    <!--        <persistence-unit name="resumeappPU_eclipselink" transaction-type="RESOURCE_LOCAL">-->
+    <!--            &lt;!&ndash; Specify the JPA provider (EclipseLink in this case) &ndash;&gt;-->
+    <!--            <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+
+    <!--            &lt;!&ndash; Your entity classes &ndash;&gt;-->
+    <!--            <class>com.company.entity.Country</class>-->
+    <!--            <class>com.company.entity.EmploymentHistory</class>-->
+    <!--            <class>com.company.entity.Skill</class>-->
+    <!--            <class>com.company.entity.User</class>-->
+    <!--            <class>com.company.entity.UserSkill</class>-->
+
+    <!--            &lt;!&ndash; Database connection properties &ndash;&gt;-->
+    <!--            <properties>-->
+    <!--                <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--                <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/resume"/>-->
+    <!--                <property name="javax.persistence.jdbc.user" value="root"/>-->
+    <!--                <property name="javax.persistence.jdbc.password" value="12345"/>-->
+
+    <!--                &lt;!&ndash; EclipseLink specific properties (optional) &ndash;&gt;-->
+    <!--                <property name="eclipselink.logging.level" value="FINE"/>-->
+    <!--                <property name="eclipselink.ddl-generation" value="create-tables"/>-->
+    <!--            </properties>-->
+    <!--        </persistence-unit>-->
+
+</persistence>
