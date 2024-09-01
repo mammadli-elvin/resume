@@ -1,62 +1,49 @@
-package com.company.dao.impl;
+package com.company.repository.custom;
 
-import com.company.dao.inter.AbstractDAO;
-import com.company.dao.inter.EmploymentHistoryDaoInter;
 import com.company.entity.EmploymentHistory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class EmploymentHistoryDaoImpl extends AbstractDAO implements EmploymentHistoryDaoInter {
+@Repository
+public class EmploymentHistoryRepositoryCustomImpl implements EmploymentHistoryRepositoryCustom {
+
+    @PersistenceContext
+    EntityManager em;
 
     @Override
     public List<EmploymentHistory> getAllEmploymentHistoryByUserId(int userId) {
-        EntityManager em = em();
         String jpql = "SELECT e FROM EmploymentHistory e WHERE e.user.id= :id";
         TypedQuery<EmploymentHistory> query = em.createQuery(jpql, EmploymentHistory.class);
         query.setParameter("id", userId);
         List<EmploymentHistory> list = query.getResultList();
-        em.close();
         return list;
     }
 
     @Override
     public EmploymentHistory getEmploymentHistoryById(int id) {
-        EntityManager em = em();
-        EmploymentHistory empHistory = em.find(EmploymentHistory.class, id);
-        em.close();
-        return empHistory;
+        return em.find(EmploymentHistory.class, id);
     }
 
     @Override
     public boolean addEmploymentHistory(EmploymentHistory employmentHistory) {
-        EntityManager em = em();
-        em.getTransaction().begin();
         em.persist(employmentHistory);
-        em.getTransaction().commit();
-        em.close();
         return true;
     }
 
     @Override
     public boolean updateEmploymentHistory(EmploymentHistory employmentHistory) {
-        EntityManager em = em();
-        em.getTransaction().begin();
         em.merge(employmentHistory);
-        em.getTransaction().commit();
-        em.close();
         return true;
     }
 
     @Override
     public boolean removeEmploymentHistory(int id) {
-        EntityManager em = em();
         EmploymentHistory empHistory = em.find(EmploymentHistory.class, id);
-        em.getTransaction().begin();
         em.remove(empHistory);
-        em.getTransaction().commit();
-        em.close();
         return true;
     }
 }

@@ -1,54 +1,44 @@
-package com.company.dao.impl;
+package com.company.repository.custom;
 
-import com.company.dao.inter.AbstractDAO;
-import com.company.dao.inter.UserSkillDaoInter;
 import com.company.entity.UserSkill;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class UserSkillDaoImpl extends AbstractDAO implements UserSkillDaoInter {
+@Repository
+public class UserSkillRepositoryCustomImpl implements UserSkillRepositoryCustom {
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public List<UserSkill> getAllUserSkillByUserId(int userId) {
-        EntityManager em = em();
         String jpql = "SELECT u FROM UserSkill u WHERE u.user.id = :userId";
         TypedQuery<UserSkill> query = em.createQuery(jpql, UserSkill.class);
         query.setParameter("userId", userId);
         List<UserSkill> list = query.getResultList();
-        em.close();
         return list;
     }
 
     @Override
     public boolean addUserSkill(UserSkill userSkill) {
-        EntityManager em = em();
-        em.getTransaction().begin();
         em.persist(userSkill);
-        em.getTransaction().commit();
-        em.close();
         return true;
     }
 
     @Override
     public boolean updateUserSkill(UserSkill userSkill) {
-        EntityManager em = em();
-        em.getTransaction().begin();
         em.merge(userSkill);
-        em.getTransaction().commit();
-        em.close();
         return true;
     }
 
     @Override
     public boolean removeUserSkill(int id) {
-        EntityManager em = em();
         UserSkill userSkill = em.find(UserSkill.class, id);
-        em.getTransaction().begin();
         em.remove(userSkill);
-        em.getTransaction().commit();
-        em.close();
         return true;
     }
 }

@@ -4,7 +4,11 @@
  */
 package com.company.main;
 
+import com.company.dao.inter.CountryDaoInter;
+import com.company.dao.inter.EmploymentHistoryDaoInter;
+import com.company.dao.inter.SkillDaoInter;
 import com.company.dao.inter.UserDaoInter;
+import com.company.dao.inter.UserSkillDaoInter;
 import com.company.entity.Country;
 import com.company.entity.User;
 
