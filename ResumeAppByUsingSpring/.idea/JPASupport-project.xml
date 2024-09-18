@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoGeneratorSettingsState">
+    <option name="ignoredFields">
+      <set>
+        <option value="" />
+      </set>
+    </option>
+    <option name="moduleName" value="ResumeDbAppJPASpring" />
+    <option name="moduleNameToSettings">
+      <map>
+        <entry key="ResumeDbAppJPASpring">
+          <value>
+            <ModuleSettings>
+              <option name="controllerParentDirectory" value="$PROJECT_DIR$/ResumeDbAppJPASpring/src/main/java" />
+              <option name="dtoParentDirectory" value="$PROJECT_DIR$/ResumeDbAppJPASpring/src/main/java" />
+              <option name="entityPackageName" value="com.company.entity" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/ResumeDbAppJPASpring/src/main/java" />
+              <option name="fileExtension" value="java.com.company.entity" />
+              <option name="generateRepository" value="false" />
+              <option name="mapperXmlParentDirectory" value="D:\Elvin Mammadli\Workspace\java\Netbeans Projects\Sarkhan Rasullu Lessons\MavenProjects\resume\ResumeAppByUsingSpring\ResumeDbAppJPASpring\src\main\resources" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/ResumeDbAppJPASpring/src/main/java/com/company/repository/" />
+              <option name="serviceParentDirectory" value="$PROJECT_DIR$/ResumeDbAppJPASpring/src/main/java" />
+              <option name="voParentDirectory" value="$PROJECT_DIR$/ResumeDbAppJPASpring/src/main/java" />
+            </ModuleSettings>
+          </value>
+        </entry>
+        <entry key="resume.multimodule">
+          <value>
+            <ModuleSettings />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="removeEntityPrefix" value="" />
+    <option name="removeFieldPrefix" value="" />
+    <option name="repositorySuffix" value="" />
+    <option name="useJakartaEE" value="true" />
+  </component>
+  <component name="DatabaseSettingsState">
+    <option name="database" value="resume" />
+    <option name="driverClass" value="com.mysql.jdbc.Driver" />
+    <option name="driverPath" value="C:\Users\elvin\.m2\repository\com\mysql\mysql-connector-j\8.2.0\mysql-connector-j-8.2.0.jar" />
+    <option name="schema" value="authority" />
+    <option name="url" value="jdbc:mysql://localhost:3306/resume" />
+  </component>
+</project>

@@ -3,26 +3,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Logout</title>
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="login-background">
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <f:form action="login" method="POST" class="login-form p-4 rounded">
-        <h1 class="text-center mb-4">Login</h1>
-        <div class="form-group">
-            <label for="username">Email address</label>
-            <input name="username" type="email" class="form-control" id="username" placeholder="email@example.com" required="required" />
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input name="password" type="password" class="form-control" id="password" placeholder="Password" required="required" />
-        </div>
+    <f:form action="logout" method="POST" class="login-form p-4 rounded">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Logout</button>
         </div>
     </f:form>
 </div>

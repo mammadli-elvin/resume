@@ -10,11 +10,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--%>
-    <link rel="stylesheet" href="src/main/webapp/WEB-INF/assets/css/users.css">
+    <link rel="stylesheet" href="assets/css/users.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script type="text/javascript" src="assets/js/users.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
@@ -30,7 +31,7 @@
 <%--<jsp:include page="header.jsp"/>--%>
 
 <div class="container mt-5">
-    <form action="logout" method="POST" class="logout-form">
+    <form action="logout" method="GET" class="logout-form">
         <button type="submit" class="btn btn-danger logout-button">Logout</button>
     </form>
     <div class="row justify-content-center">
@@ -41,7 +42,7 @@
                 </div>
                 <div class="card-body">
                     <f:form action="usersm" method="GET" modelAttribute="user">
-                        <input type="hidden" name="id" value="">
+                        <f:input type="hidden" path="id" value="0"/>
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <f:input
@@ -129,7 +130,7 @@
                 Are you sure?
             </div>
             <div class="modal-footer">
-                <form action="userdetail" method="POST">
+                <form action="usersm" method="POST">
                     <input type="hidden" name="id" value="" id="idForDelete"/>
                     <input type="hidden" name="action" value="delete"/>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

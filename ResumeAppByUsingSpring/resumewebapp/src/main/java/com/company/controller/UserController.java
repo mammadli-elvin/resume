@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.entity.User;
 import com.company.form.UserForm;
+import com.company.service.DummyService;
 import com.company.service.inter.UserServiceInter;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,13 @@ public class UserController {
     @ModelAttribute("user")
     public UserForm getEmptyUserForm() {
         return new UserForm(null, null, null);
+    }
+
+    @RequestMapping(method=RequestMethod.POST, value="/usersm")
+    public ModelAndView deleteUser(@RequestParam("id") int id) {
+        userService.removeUser(id);
+
+        return new ModelAndView("redirect:/usersm");
+
     }
 }

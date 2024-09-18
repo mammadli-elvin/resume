@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class UserForm {
 
+    private int id;
 //    @NotEmpty
     @Size(min=3, message="name can not be less than 3")
     private String name;
@@ -37,6 +38,14 @@ public class UserForm {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPhone() {
